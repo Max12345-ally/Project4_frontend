@@ -1,6 +1,6 @@
 import React from "react";
 
-function Home() {
+function Home({ assets }) {
   return (
     <div>
       <h1>Welcome to our app</h1>
