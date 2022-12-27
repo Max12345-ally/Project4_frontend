@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./Home";
 import About from "./About";
 import Nav from "./Nav";
+import Create from "./Create";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -19,8 +20,6 @@ function App() {
       })
       .then(function (response) {
         setAssets(response.data);
-        console.log(response.data);
-        console.log(response.data[0].image);
       })
       .catch(function (error) {
         console.error(error);
@@ -31,6 +30,7 @@ function App() {
     <div className="App">
       <Router>
         <Nav></Nav>
+        <Create />
         <Routes>
           <Route path="/" element={<Home assets={assets} />} />
           <Route path="/about" element={<About />} />
