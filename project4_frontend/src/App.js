@@ -10,14 +10,13 @@ import axios from "axios";
 function App() {
   const [assets, setAssets] = useState([]);
 
-  const getAssets = {
-    method: "GET",
-    url: "http://185.20.225.250/api/assets",
-  };
-
   useEffect(() => {
     axios
-      .request(getAssets)
+      .request({
+        method: "GET",
+        // url: "http://185.20.225.250/api/assets",
+        url: "http://localhost:4000/api/assets",
+      })
       .then(function (response) {
         setAssets(response.data);
         console.log(response.data);
@@ -34,7 +33,7 @@ function App() {
         <Nav></Nav>
         <Routes>
           <Route path="/" element={<Home assets={assets} />} />
-          <Route path="/About" element={<About />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>

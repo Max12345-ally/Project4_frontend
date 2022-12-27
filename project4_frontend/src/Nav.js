@@ -4,9 +4,18 @@ import { Link } from "react-router-dom";
 function Nav() {
   return (
     <header>
-      <Link to="/">Home</Link>
-      <Link to="/About">About</Link>
-      <Link to="/Login">Login</Link>
+      <nav
+        style={{
+          display: "flex",
+          gap: "2rem",
+          justifyContent: "center",
+          paddingBlock: "1rem",
+        }}
+      >
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/login">Login</Link>
+      </nav>
     </header>
   );
 }
