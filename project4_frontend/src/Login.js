@@ -10,13 +10,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  console.log(email);
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) navigate("/me");
   }, [user, loading, navigate]);
+
   return (
     <div className="login">
       <div className="login__container">
@@ -34,9 +35,10 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+
         <button
           className="login__btn"
-          onClick={() => signInWithEmailAndPassword(email, password)}
+          onClick={() => signInWithEmailAndPassword(auth, email, password)}
         >
           Login
         </button>

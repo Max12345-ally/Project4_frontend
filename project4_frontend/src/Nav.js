@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+function navLinkStyle({ isActive }) {
+  return isActive ? { fontWeight: 600 } : {};
+}
 
 function Nav() {
+  const [user] = useAuthState(auth);
+
   return (
     <header>
       <nav
@@ -10,11 +18,23 @@ function Nav() {
           gap: "2rem",
           justifyContent: "center",
           paddingBlock: "1rem",
+          textUnderlineOffset: 2,
         }}
       >
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/login">Login</Link>
+        <NavLink to="/" style={navLinkStyle}>
+          Home
+        </NavLink>
+        <NavLink to="/about" style={navLinkStyle}>
+          About
+        </NavLink>
+        {user ? (
+          <NavLink to="/me" style={navLinkStyle}>
+            {user.email}
+          </NavLink>
+        ) : null}
+        <NavLink to="/login" style={navLinkStyle}>
+          {user ? "Log out" : "Log in"}
+        </NavLink>
       </nav>
     </header>
   );

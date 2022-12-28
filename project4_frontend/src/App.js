@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Login";
+import Register from "./Register";
+import Dashboard from "./Dashboard";
 import "./App.css";
 import Home from "./Home";
 import About from "./About";
@@ -7,9 +9,13 @@ import Nav from "./Nav";
 import Create from "./Create";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Profile from "./Profile";
 
 function App() {
   const [assets, setAssets] = useState([]);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     axios
@@ -29,12 +35,15 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav></Nav>
-        <Create />
+        <Nav />
+        {user ? <Create /> : null} {/* NOTE: Beware of layout shift here. */}
         <Routes>
           <Route path="/" element={<Home assets={assets} />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/me" element={<Profile />} />
         </Routes>
       </Router>
     </div>
