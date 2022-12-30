@@ -8,28 +8,19 @@ import About from "./About";
 import Nav from "./Nav";
 import Create from "./Create";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Profile from "./Profile";
+import { myFetch } from "./api";
 
 function App() {
   const [assets, setAssets] = useState([]);
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    axios
-      .request({
-        method: "GET",
-        // url: "http://185.20.225.250/api/assets",
-        url: "http://localhost:4000/api/assets",
-      })
-      .then(function (response) {
-        setAssets(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    myFetch("api/assets")
+      .then((response) => response.json())
+      .then((data) => setAssets(data));
   }, []);
 
   return (

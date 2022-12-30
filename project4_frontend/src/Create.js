@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { myFetch } from "./api";
 
 export default function Create() {
   const [form, setForm] = useState({ title: "", image: "" });
@@ -15,14 +16,9 @@ export default function Create() {
     e.preventDefault();
     const newAsset = { ...form };
 
-    await fetch("http://localhost:4000/api/assets", {
+    await myFetch("api/assets", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(newAsset),
-    }).catch((error) => {
-      window.alert(error);
     });
 
     setForm({ title: "", image: "" });
