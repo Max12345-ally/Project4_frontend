@@ -4,6 +4,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import "./App.css";
 import Home from "./Home";
+import AssetDetail from "./AssetDetail";
 import About from "./About";
 import Nav from "./Nav";
 import Create from "./Create";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/me" element={<Profile />} />
+          <Route path="/assets/:id" element={<AssetDetail />} />
         </Routes>
       </Router>
     </div>

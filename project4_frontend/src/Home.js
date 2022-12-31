@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { myFetch } from "./api";
 
 function Home({ assets = [] }) {
@@ -15,7 +15,7 @@ function Home({ assets = [] }) {
       <h1>Welcome to our app</h1>
       {assets.map((asset) => (
         <div key={asset._id}>
-          <p>{asset.title}</p>
+          <Link to={`/assets/${asset._id}`}>{asset.title}</Link>
           <img src={asset.image} alt={asset.title} width="300" height="200" />
           <form
             onSubmit={(event) => {
