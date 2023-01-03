@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth, logout } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 function navLinkStyle({ isActive }) {
@@ -32,9 +32,15 @@ function Nav() {
             {user.email}
           </NavLink>
         ) : null}
-        <NavLink to="/login" style={navLinkStyle}>
-          {user ? "Log out" : "Log in"}
-        </NavLink>
+        {!user ? (
+          <NavLink to="/login" style={navLinkStyle}>
+            Log in
+          </NavLink>
+        ) : (
+          <NavLink onClick={logout} style={navLinkStyle}>
+            Log out
+          </NavLink>
+        )}
       </nav>
     </header>
   );
