@@ -1,9 +1,18 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { myFetch } from "./api";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function Create() {
-  const [form, setForm] = useState({ title: "", image: "" });
+import { auth } from "./firebase";
+
+export default function Create(props) {
+  const [user, loading] = useAuthState(auth);
+  console.log(user);
+
+  const [form, setForm] = useState({
+    title: "",
+    image: "",
+  });
   const navigate = useNavigate();
 
   function updateForm(value) {
@@ -14,7 +23,7 @@ export default function Create() {
 
   async function onSubmit(e) {
     e.preventDefault();
-    const newAsset = { ...form };
+    const newAsset = { ...form, userName: user.email };
 
     await myFetch("api/assets", {
       method: "POST",
@@ -22,6 +31,7 @@ export default function Create() {
     });
 
     setForm({ title: "", image: "" });
+    props.fetchAssets();
     navigate("/");
   }
 

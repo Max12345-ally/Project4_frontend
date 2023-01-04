@@ -18,6 +18,15 @@ function Login() {
     if (user) navigate("/");
   }, [user, loading, navigate]);
 
+  const login = async () => {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    console.log(userCredential);
+  };
+
   return (
     <div className="login">
       <div className="login__container">
@@ -26,7 +35,7 @@ function Login() {
           className="login__textBox"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
+          placeholder="E-mail"
         />
         <input
           type="password"
@@ -36,20 +45,12 @@ function Login() {
           placeholder="Password"
         />
 
-        <button
-          className="login__btn"
-          onClick={() => signInWithEmailAndPassword(auth, email, password)}
-        >
-          Login
+        <button className="login__btn" onClick={login}>
+          Continue
         </button>
-        <button className="login__btn login__google" onClick={signInWithGoogle}>
-          Login with Google
-        </button>
+
         <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
+          No account? <Link to="/register">Register</Link> now.
         </div>
       </div>
     </div>

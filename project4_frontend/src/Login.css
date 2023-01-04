@@ -11,23 +11,27 @@
   text-align: center;
   background-color: #dcdcdc;
   padding: 30px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px 1px rgba(1, 0, 0, 1);
 }
 .login__textBox {
   padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .login__btn {
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border: none;
   color: white;
   background-color: black;
+  border-radius: 15px;
 }
-.login__google {
+/* .login__google {
   background-color: #4285f4;
-}
+} */
 .login div {
-  margin-top: 7px;
+  margin-top: 16px;
 }

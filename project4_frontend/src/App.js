@@ -16,26 +16,30 @@ import { myFetch } from "./api";
 
 function App() {
   const [assets, setAssets] = useState([]);
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
-  useEffect(() => {
+  const fetchAssets = () => {
     myFetch("api/assets")
       .then((response) => response.json())
       .then((data) => setAssets(data));
+  };
+
+  useEffect(() => {
+    fetchAssets();
   }, []);
 
   return (
     <div className="App">
       <Router>
         <Nav />
-        {user ? <Create /> : null} {/* NOTE: Beware of layout shift here. */}
+
         <Routes>
           <Route path="/" element={<Home assets={assets} />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/me" element={<Profile />} />
+          <Route path="/me" element={<Profile fetchAssets={fetchAssets} />} />
           <Route path="/assets/:id" element={<AssetDetail />} />
         </Routes>
       </Router>

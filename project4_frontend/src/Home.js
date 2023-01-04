@@ -57,11 +57,22 @@ const Image = styled.img`
   }
 `;
 
-const StyledLink = styled(Link)`
+const TitleStyledLink = styled(Link)`
   z-index: 1;
   position: absolute;
-  top: 10px;
+  bottom: 30px;
   left: 10px;
+  text-decoration: none;
+  color: white;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
+`;
+
+const Username = styled.div`
+  z-index: 1;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  text-decoration: none;
   color: white;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
 `;
@@ -74,10 +85,13 @@ function Asset(props) {
 
   return (
     <AssetContainer key={asset._id}>
-      <StyledLink to={`/assets/${asset._id}`}>{asset.title} </StyledLink>
+      <TitleStyledLink to={`/assets/${asset._id}`}>
+        {asset.title}{" "}
+      </TitleStyledLink>
+      <Username>{asset.userName}</Username>
       <Image src={asset.image} alt={asset.title} />
       <button
-        //type="submit"
+        type="submit"
         style={{ display: "none" }}
         onClick={() => props.handleDelete(asset._id)}
       >
