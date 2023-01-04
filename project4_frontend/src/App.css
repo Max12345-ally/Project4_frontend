@@ -1,15 +1,14 @@
 .App {
   text-align: center;
 }
-.images {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-  transition: transform 0.5s;
-}
-.images:hover {
-  transform: scale(1.1);
+
+.main-title {
+  color: white;
+  font-family: inherit;
+  text-align: left;
+  font-size: 60px;
+  font-weight: bold;
+  position: absolute;
+  top: 178px;
+  left: 136px;
 }

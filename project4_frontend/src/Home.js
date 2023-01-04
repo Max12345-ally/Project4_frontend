@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useNavigate, Link } from "react-router-dom";
 import { myFetch } from "./api";
+import ImageMain from "./pasted-image-0.png";
 
 const Container = styled.div``;
 
@@ -22,7 +23,8 @@ function Home({ assets = [] }) {
 
   return (
     <Container>
-      <h1>Welcome to our app</h1>
+      <div className="main-title">Beehance</div>
+      <img src={ImageMain} height="300" width="1400" />
       <Assets>
         {assets.map((asset) => {
           return <Asset asset={asset} handleDelete={handleDelete} />;
@@ -37,6 +39,7 @@ const AssetContainer = styled.div`
   width: 200px;
   height: 200px;
   position: relative;
+  //background-image: url(${(props) => props.img});
 `;
 
 const Image = styled.img`
@@ -65,19 +68,24 @@ const StyledLink = styled(Link)`
 
 function Asset(props) {
   const asset = props.asset;
+  // function likeButtonHandler() {
+  //   console.log("test");
+  // }
 
   return (
     <AssetContainer key={asset._id}>
-      <StyledLink to={`/assets/${asset._id}`}>{asset.title}</StyledLink>
+      <StyledLink to={`/assets/${asset._id}`}>{asset.title} </StyledLink>
       <Image src={asset.image} alt={asset.title} />
       <button
-        type="submit"
+        //type="submit"
         style={{ display: "none" }}
         onClick={() => props.handleDelete(asset._id)}
       >
         Delete
         <span className="sr-only">{asset.title}</span>
       </button>
+
+      {/* <button onClick={likeButtonHandler}>♡</button> */}
     </AssetContainer>
   );
 }

@@ -16,9 +16,10 @@ function Nav() {
         style={{
           display: "flex",
           gap: "2rem",
-          justifyContent: "center",
+          justifyContent: "space-around",
           paddingBlock: "1rem",
           textUnderlineOffset: 2,
+          textDecoration: "none",
         }}
       >
         <NavLink to="/" style={navLinkStyle}>
