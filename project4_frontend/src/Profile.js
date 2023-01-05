@@ -1,7 +1,8 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate } from "react-router-dom";
 import { auth } from "./firebase";
-import Create from "./Create";
+import CreateAsset from "./CreateAsset";
+import ProfileInfo from "./ProfileInfo";
 
 function Profile(props) {
   const [user, loading] = useAuthState(auth);
@@ -17,7 +18,8 @@ function Profile(props) {
   return (
     <>
       <h1>My Profile ({user.email})</h1>
-      <Create fetchAssets={props.fetchAssets} />
+      <CreateAsset fetchAssets={props.fetchAssets} />
+      <ProfileInfo />
     </>
   );
 }

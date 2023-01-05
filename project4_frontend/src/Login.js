@@ -24,7 +24,7 @@ function Login() {
       email,
       password
     );
-    console.log(userCredential);
+    //console.log(userCredential);
   };
 
   return (
