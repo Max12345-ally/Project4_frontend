@@ -7,11 +7,10 @@ import Home from "./Home";
 import AssetDetail from "./AssetDetail";
 import About from "./About";
 import Nav from "./Nav";
-import Create from "./CreateAsset";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Profile from "./Profile";
+import Profile from "./Profile/Profile";
 import { myFetch } from "./api";
 
 function App() {

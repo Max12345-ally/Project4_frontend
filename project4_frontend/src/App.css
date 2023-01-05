@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: "Neue Machina";
+  background-color: #f9f9f9;
 }
 
 .main-title {
@@ -11,5 +12,15 @@
   font-weight: bold;
   position: absolute;
   top: 178px;
+  left: 136px;
+}
+.main-title2 {
+  color: white;
+  font-family: inherit;
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 218px;
   left: 136px;
 }

@@ -1,38 +1,16 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { myFetch } from "./api";
+import { myFetch } from "../api";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "@emotion/styled";
 
-import { MdOutlineModeEdit } from "react-icons/md";
+import { auth } from "../firebase";
 
-import { auth } from "./firebase";
+import { Panel, FormGroup } from "./Panel";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 50px;
+const Container = styled(Panel)``;
 
-  .form-group {
-    width: 250px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  input {
-    height: 24px;
-    border-radius: 20px;
-    padding: 0 15px;
-  }
-`;
-
-const EditIcon = styled(MdOutlineModeEdit)`
-  cursor: pointer;
-`;
-
-export default function ProfileInfo() {
+export default function CreateAsset(props) {
   const [user, loading] = useAuthState(auth);
   console.log(user);
 
@@ -51,24 +29,14 @@ export default function ProfileInfo() {
 
     setTitle("");
     setImage("");
+    props.fetchAssets();
     navigate("/");
   }
 
-  const [mode, setMode] = useState("show");
-
-  const anotherMode = useMemo(() => {
-    return mode == "show" ? "edit" : "show";
-  }, [mode]);
-  const switchMode = () => {
-    setMode(anotherMode);
-  };
-
   return (
     <Container>
-      <h3 className="titleLine">
-        Profile Info <EditIcon onClick={switchMode} title={anotherMode} />
-      </h3>
-      <div className="form-group">
+      <h3 className="titleLine">Create An Asset</h3>
+      <FormGroup>
         <label htmlFor="title" style={{ fontWeight: 600 }}>
           Title{" "}
         </label>
@@ -80,9 +48,9 @@ export default function ProfileInfo() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </div>
+      </FormGroup>
 
-      <div className="form-group">
+      <FormGroup>
         <label htmlFor="image" style={{ fontWeight: 600 }}>
           Image{" "}
         </label>
@@ -94,9 +62,9 @@ export default function ProfileInfo() {
           value={image}
           onChange={(e) => setImage(e.target.value)}
         />
-      </div>
+      </FormGroup>
 
-      <div className="form-group">
+      <FormGroup>
         <button
           onClick={saveAsset}
           className="pointer"
@@ -104,7 +72,7 @@ export default function ProfileInfo() {
         >
           Create Asset
         </button>
-      </div>
+      </FormGroup>
     </Container>
   );
 }
