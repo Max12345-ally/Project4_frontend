@@ -78,7 +78,8 @@ export function Asset(props) {
 
 export const Assets = styled.div`
   display: flex;
-  gap: 90px;
-  padding: 5vw 10vw;
+  gap: 5vw;
+  justify-content: space-between;
+  padding: 5vw 5vw;
   flex-wrap: wrap;
 `;
