@@ -1,9 +1,10 @@
 import React from "react";
+import ImageMain from "./About.png";
 
 function About() {
   return (
     <div>
-      <h1>This is about page</h1>
+      <img alt="main" src={ImageMain} height="600" width="1900" />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { MdNoEncryption } from "react-icons/md";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 const AssetContainer = styled.div`
   display: flex;
-  width: 200px;
-  height: 200px;
+  //cursor: pointer;
+  width: 350px;
+  height: 350px;
   position: relative;
   transition: transform 0.5s;
   //background-image: url(${(props) => props.img});
@@ -27,7 +27,7 @@ const Image = styled.img`
 const TitleStyledLink = styled(Link)`
   z-index: 1;
   position: absolute;
-  bottom: -100px;
+  bottom: 40px;
   left: 20px;
   text-decoration: none;
   color: white;
@@ -37,7 +37,7 @@ const TitleStyledLink = styled(Link)`
 const Username = styled.div`
   z-index: 1;
   position: absolute;
-  bottom: -120px;
+  bottom: 20px;
   left: 20px;
   text-decoration: none;
   color: white;
@@ -53,10 +53,6 @@ const DeleteButton = styled.button`
 
 export function Asset(props) {
   const { asset, handleDelete } = props;
-
-  // function likeButtonHandler() {
-  //   console.log("test");
-  // }
 
   return (
     <AssetContainer key={asset._id}>
@@ -82,7 +78,7 @@ export function Asset(props) {
 
 export const Assets = styled.div`
   display: flex;
-  gap: 190px;
+  gap: 90px;
   padding: 5vw 10vw;
   flex-wrap: wrap;
 `;

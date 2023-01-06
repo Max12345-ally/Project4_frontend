@@ -1,43 +1,23 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { myFetch } from "./api";
+import { Link, useParams } from "react-router-dom";
+import styled from "@emotion/styled";
 
-function AssetDetail() {
+const UserLink = styled(Link)`
+  text-decoration: none;
+  color: gray;
+`;
+
+function AssetDetail(props) {
+  const { assets } = props;
   const { id } = useParams();
 
-  const [asset, setAsset] = useState();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchAsset() {
-      const response = await myFetch(`api/assets/${id}`);
-      const data = await response.json();
-      setLoading(false);
-      if (!response.ok) {
-        setError(data);
-      } else {
-        setAsset(data.asset);
-      }
-    }
-    fetchAsset();
-  }, [id]);
-
-  if (loading) {
-    return null;
-  }
-
-  if (error) {
-    <div>
-      {JSON.stringify(error)}
-      {/* {error.status} */}
-      {/* {error.message} */}
-    </div>;
-  }
+  const asset = assets.find((asset) => asset._id === id);
 
   return (
     <div>
-      <h1>{asset.title}</h1>
+      <h1>
+        {asset.title}{" "}
+        <UserLink to={`/users/${asset.userName}`}>by {asset.userName}</UserLink>
+      </h1>
       <img src={asset.image} alt={asset.title} width="600" height="400" />
       <ul>
         {asset.comments.map((comment) => (

@@ -9,7 +9,6 @@ export const UploadFile = () => {
   const [uploaded, setUpLoaded] = useState();
 
   const handleChange = (event) => {
-    console.log(event.target.files);
     setSelectedFile(event.target.files[0]);
   };
 

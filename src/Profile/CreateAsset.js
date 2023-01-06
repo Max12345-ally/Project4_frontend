@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { myFetch } from "../api";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "@emotion/styled";
@@ -12,14 +11,13 @@ const Container = styled(Panel)``;
 
 export default function CreateAsset(props) {
   // start to #create new imaage in profile
-  const [user, loading] = useAuthState(auth);
-  console.log(user);
+  const [user] = useAuthState(auth);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
   async function saveAsset(e) {
-    const newAsset = { title, image, userName: user.email };
+    const newAsset = { title, image, userName: user?.email };
 
     const response = await myFetch("api/assets", {
       method: "POST",

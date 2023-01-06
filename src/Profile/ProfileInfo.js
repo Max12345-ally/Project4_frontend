@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { myFetch } from "../api";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "@emotion/styled";
@@ -8,6 +8,7 @@ import { TiTick } from "react-icons/ti";
 
 import { auth } from "../firebase";
 import { Panel, FormGroup } from "./Panel";
+import { useParams } from "react-router-dom";
 
 const Container = styled(Panel)``;
 
@@ -37,10 +38,14 @@ const Title = styled.div``;
 const Contacts = styled.div``;
 const Header = styled.h3``;
 
-export default function ProfileInfo() {
-  const [user, loading] = useAuthState(auth);
-  console.log(user);
+export default function ProfileInfo(props) {
+  const { email } = useParams();
+  const urlEmail = email;
+  const { isMyProfile } = props;
 
+  const [user] = useAuthState(auth);
+
+  const emailToFetchUser = isMyProfile ? user?.email : urlEmail;
   const [fullName, setFullName] = useState("");
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
@@ -49,7 +54,7 @@ export default function ProfileInfo() {
   const [mode, setMode] = useState("show");
 
   const anotherMode = useMemo(() => {
-    return mode == "show" ? "edit" : "show";
+    return mode === "show" ? "edit" : "show";
   }, [mode]);
   const switchMode = () => {
     setMode(anotherMode);
@@ -57,7 +62,7 @@ export default function ProfileInfo() {
 
   const fetchUser = useCallback(
     async function fetchUser() {
-      const userMongoResponse = await myFetch(`api/users/${user.email}`, {
+      const userMongoResponse = await myFetch(`api/users/${emailToFetchUser}`, {
         method: "GET",
       });
       if (userMongoResponse.ok) {
@@ -67,10 +72,12 @@ export default function ProfileInfo() {
         setAbout(userMongo.about);
         setAvatarLink(userMongo.avatarLink);
       } else {
-        setMode("edit");
+        if (isMyProfile) {
+          setMode("edit");
+        }
       }
     },
-    [setMode]
+    [setMode, emailToFetchUser, isMyProfile]
   );
 
   useEffect(() => {
@@ -101,14 +108,14 @@ export default function ProfileInfo() {
     <Container>
       <Header>
         Profile Info
-        {mode == "show" && (
+        {mode === "show" && isMyProfile && (
           <EditIcon onClick={switchMode} title={anotherMode} />
         )}
-        {mode == "edit" && (
+        {mode === "edit" && isMyProfile && (
           <StopEditingIcon onClick={stopEditing} title="save" />
         )}
       </Header>
-      {mode == "show" && (
+      {mode === "show" && (
         <>
           <Avatar src={avatarLink} />
           <FullName>{fullName}</FullName>
@@ -116,7 +123,7 @@ export default function ProfileInfo() {
           <Label>About</Label>
           <About>{about}</About>
           <Label>Contacts</Label>
-          <Contacts>{user.email}</Contacts>
+          <Contacts>{emailToFetchUser}</Contacts>
         </>
       )}
       {mode == "edit" && (
