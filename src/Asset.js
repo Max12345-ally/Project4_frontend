@@ -47,8 +47,8 @@ const Username = styled.div`
 const DeleteButton = styled.button`
   z-index: 1;
   position: absolute;
-  bottom: -100px;
-  right: -100px;
+  bottom: 20px;
+  right: 20px;
 `;
 
 export function Asset(props) {
