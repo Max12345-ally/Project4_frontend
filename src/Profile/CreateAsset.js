@@ -11,26 +11,27 @@ import { Panel, FormGroup } from "./Panel";
 const Container = styled(Panel)``;
 
 export default function CreateAsset(props) {
+  // start to #create new imaage in profile
   const [user, loading] = useAuthState(auth);
   console.log(user);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
-  const navigate = useNavigate();
-
   async function saveAsset(e) {
     const newAsset = { title, image, userName: user.email };
 
-    await myFetch("api/assets", {
+    const response = await myFetch("api/assets", {
       method: "POST",
       body: JSON.stringify(newAsset),
     });
 
-    setTitle("");
-    setImage("");
-    props.fetchAssets();
-    navigate("/");
+    if (response.ok) {
+      const createdAsset = await response.json();
+      setTitle("");
+      setImage("");
+      props.onCreate(createdAsset);
+    }
   }
 
   return (

@@ -1,11 +1,16 @@
 import styled from "@emotion/styled";
+import { MdNoEncryption } from "react-icons/md";
 import { useNavigate, Link } from "react-router-dom";
 const AssetContainer = styled.div`
   display: flex;
   width: 200px;
   height: 200px;
   position: relative;
+  transition: transform 0.5s;
   //background-image: url(${(props) => props.img});
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const Image = styled.img`
@@ -17,34 +22,38 @@ const Image = styled.img`
   height: 350px;
   border-radius: 20px;
   transition: transform 0.5s;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 const TitleStyledLink = styled(Link)`
   z-index: 1;
   position: absolute;
   bottom: -100px;
-  left: 10px;
+  left: 20px;
   text-decoration: none;
   color: white;
-  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
+  //box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
 `;
 
 const Username = styled.div`
   z-index: 1;
   position: absolute;
   bottom: -120px;
-  left: 10px;
+  left: 20px;
   text-decoration: none;
   color: white;
-  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
+  //box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8);
+`;
+
+const DeleteButton = styled.button`
+  z-index: 1;
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
 `;
 
 export function Asset(props) {
-  const asset = props.asset;
+  const { asset, handleDelete } = props;
+
   // function likeButtonHandler() {
   //   console.log("test");
   // }
@@ -56,14 +65,15 @@ export function Asset(props) {
       </TitleStyledLink>
       <Username>{asset.userName}</Username>
       <Image src={asset.image} alt={asset.title} />
-      <button
-        type="submit"
-        style={{ display: "none" }}
-        onClick={() => props.handleDelete(asset._id)}
-      >
-        Delete
-        <span className="sr-only">{asset.title}</span>
-      </button>
+      {handleDelete && (
+        <DeleteButton
+          // visible={!!handleDelete}
+          onClick={() => handleDelete(asset._id)}
+        >
+          Delete
+          <span className="sr-only">{asset.title}</span>
+        </DeleteButton>
+      )}
 
       {/* <button onClick={likeButtonHandler}>♡</button> */}
     </AssetContainer>

@@ -27,6 +27,16 @@ function App() {
     fetchAssets();
   }, []);
 
+  const onDelete = (assetId) => {
+    const newAssets = assets.filter((asset) => asset._id != assetId); // to instant render
+    setAssets(newAssets);
+  };
+
+  const onCreate = (newAsset) => {
+    const newAssets = [...assets, newAsset];
+    setAssets(newAssets);
+  };
+
   return (
     <div className="App">
       <Router>
@@ -38,7 +48,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/me" element={<Profile fetchAssets={fetchAssets} />} />
+          <Route
+            path="/me"
+            element={
+              <Profile
+                onDelete={onDelete}
+                onCreate={onCreate}
+                assets={assets}
+              />
+            }
+          />
           <Route path="/assets/:id" element={<AssetDetail />} />
         </Routes>
       </Router>

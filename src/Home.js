@@ -7,20 +7,12 @@ import { Asset, Assets } from "./Asset";
 const Container = styled.div``;
 
 function Home({ assets = [] }) {
-  const navigate = useNavigate();
-
-  async function handleDelete(assetId) {
-    console.log(`Delete asset with id "${assetId}"`);
-    await myFetch(`api/assets/${assetId}`, { method: "DELETE" });
-    navigate("/");
-  }
-
   return (
     <Container>
       <img src={ImageMain} height="300" width="1900" />
       <Assets>
         {assets.map((asset) => {
-          return <Asset asset={asset} handleDelete={handleDelete} />;
+          return <Asset key={asset.title + asset.link} asset={asset} />;
         })}
       </Assets>
     </Container>
